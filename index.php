@@ -4,39 +4,32 @@ session_start();
 error_reporting(error_level: E_ALL & ~E_DEPRECATED);
 ini_set(option: 'display_errors', value: '1');
 
-use Controller\Controllers;
+use Controller\Controller;
 
 include __DIR__ . '/autoload.php';
 
 $query = $_SERVER['QUERY_STRING'];
 $path = $_SERVER['REQUEST_URI'];
 $arrayPath = explode('/', $path);
-$controllerName = 'Controller\\' . substr(ucfirst($arrayPath[count($arrayPath) - 2]), 2) . 'Controllers';
+$controllerName = 'Controller\\' . ucfirst(substr(ucfirst($arrayPath[count($arrayPath) - 2]), 2)) . 'Controller';
 $action = explode('&', $arrayPath[count($arrayPath) - 1])[0];
-
 
 if (!empty($query)) {
     $params = explode("&", $query);
 } else {
-    $params = null;
+    $params = [];
 }
 try {
-    /** @var Controllers $index */
-    $index = new $controllerName;
+    /** @var Controller $controller */
+    $controller = new $controllerName;
+
     if (empty($action)) {
-        echo $index->action($params);
+        echo $controller->action($params);
         return;
     }
 
-    echo $index->$action($params);
+    echo $controller->$action($params);
 
 } catch (Exception $error) {
     echo $error->getMessage();
 }
-
-
-
-
-
-
-
