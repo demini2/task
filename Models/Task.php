@@ -11,7 +11,7 @@ use PDO;
 class Task extends Model
 {
     /** Название таблицы в БД*/
-    public const TABLE = 'tasks';
+    public const TABLE = 'task';
 
     /** @var int Готовая задача */
     public const FLAG_READY = 3;
