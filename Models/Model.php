@@ -5,12 +5,11 @@ namespace Models;
 use Exception;
 
 /**
- *
  * исходный базавый класс
  */
 abstract class Model
 {
-    /** константа названия таблицы*/
+    /** названия таблицы*/
     public const TABLE = '';
 
     /** @var int Id */
@@ -28,8 +27,11 @@ abstract class Model
 
     /**
      * получаем все записи
+     *
+     * @param string $sql
+     * @param string $class
+     * @param array $params
      * @return array|null
-     * @throws Exception
      */
     public function findAll(string $sql, string $class, array $params = []): ?array
     {
@@ -38,16 +40,15 @@ abstract class Model
             static::class,
             $params,
         );
-
         if (empty($arr)) {
             return null;
         }
-
         return $arr;
     }
 
     /**
      * находим записи по Id
+     *
      * @param string $id
      * @return object|null
      * @throws Exception
@@ -60,11 +61,9 @@ abstract class Model
             static::class,
             ['id' => $id]
         );
-
         if (empty($answer)) {
             return null;
         }
-
         return $answer;
     }
 
@@ -73,6 +72,7 @@ abstract class Model
      * получаем данные,
      * записываем в массив,
      * передаем sql запрос в базу
+     *
      * @return bool
      */
     public function insert(): bool
@@ -102,6 +102,7 @@ abstract class Model
     /**
      * удаляем конкретную новость
      * по Id
+     *
      * @return bool
      */
     public function delete(): bool
@@ -146,7 +147,6 @@ abstract class Model
     public function save(): bool
     {
         if (isset($this->id)) {
-
             return $this->update();
         }
         return $this->insert();
