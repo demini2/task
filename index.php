@@ -14,6 +14,10 @@ $arrayPath = explode('/', $path);
 $controllerName = 'Controller\\' . ucfirst(substr(ucfirst($arrayPath[count($arrayPath) - 2]), 2)) . 'Controller';
 $action = explode('&', $arrayPath[count($arrayPath) - 1])[0];
 
+if (!method_exists($controllerName, $action)  ){
+    $action = null;
+}
+
 if (!empty($query)) {
     $params = explode("&", $query);
 } else {
