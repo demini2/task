@@ -1,0 +1,70 @@
+{% extends 'main.twig' %}
+
+{% block content %}
+
+    {% include 'newTasks.twig' %}
+
+    {% for index,exercise in currentFilters %}
+
+        <form id="tasksForm" datatype="{{ exercise.getId }}" method="post" onsubmit="return false">
+            <div class="m-1 form-control w-50 {% if exercise.getFlag == 2 %} bg-primary text-white {% endif %}">
+                {% if exercise.getFlag == 2 %}
+                    <h2>Важная задача!</h2
+                {% endif %}
+                <h2>{{ exercise.getTitle() }}</h2><br>
+
+                <textarea id="1" class="form-control"
+                          name="content_{{ exercise.getId }}">{{ exercise.getContent() }}</textarea>
+
+                {% if exercise.getAuthor() %}
+                    <p>Автор статьи:</p>
+                    <p>{{ exercise.getAuthor() }}</p>
+                {% endif %}
+            </div>
+            <button class="m-1 btn btn-outline-primary" id="delete" value="{{ exercise.getId }}"
+                    type="submit">Удалить
+            </button>
+            <button class="m-1 btn btn-outline-primary" id="edit" value="{{ exercise.getId }}"
+                    type="submit">Редактировать
+            </button>
+            <button class="m-1 btn btn-outline-primary" id="ready" value="{{ exercise.getId }}"
+                    type="submit">Выполнено
+            </button>
+
+        </form>
+    {% endfor %}
+
+    {% include 'pagination.twig' %}
+
+
+    <script>
+        $(document).ready(function () {
+            $("#tasksForm button[type=submit]").click(function (event) {
+                let btn = $(this);
+                let del = true;
+                if ($(this).attr('id') === 'delete') {
+                    del = confirm('Вы уверены что хотите удалить задание?');
+                }
+
+                if ($(this).attr('id') === 'edit'){
+                }
+
+                if (del) {
+                    $.ajax({
+                        url: '?=Tasks/' + $(this).attr('id'),
+                        method: 'post',
+                        dataType: 'html',
+                        data: {
+                            "taskId": btn.val(),
+                        },
+                        success: function (data) {
+                            console.log(data);
+                        },
+                    });
+                    event.preventDefault();
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'main.twig' %}
+
+{% block content %}
+    {% if flag %}
+        {% for user in users %}
+            <form id="tasksForm"  method="post" onsubmit="return false">
+                <div class="m-1 form-control w-50">
+                    <h2>{{ user.getEmail }}</h2><br>
+                    <h3>{{ user.getCountTask }}</h3><br>
+
+                </div>
+            </form>
+        {% endfor %}
+    {% else %}
+
+        <div>
+            <form name="red" method="post">
+                <p><b>Email</b><Br>
+                    <input name="email" placeholder="email" autofocus required pattern="\S+@[a-z]+.[a-z]+"></input>
+                </p>
+                <button class="btn btn-outline-dark"
+                        formaction="?=Index/action"
+                        type="submit">Вход
+                </button>
+            </form>
+        </div>
+        <br>
+    {% endif %}
+{% endblock %}

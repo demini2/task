@@ -1,0 +1,12 @@
+{
+  "require": {
+    "twig/twig": "1.*",
+    "components/jquery": "1.9.*",
+    "ext-pdo": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "robloach/component-installer": true
+    }
+  }
+}

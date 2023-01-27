@@ -1,0 +1,49 @@
+<form method="post" id="newTasksForm" onsubmit="return false">
+
+    <div class="form-control w-25 bg-primary text-white">
+        <label for="exampleFormControlTextarea1">Опишите задачу</label>
+        <textarea class="form-control" name="content"></textarea>
+
+        <div class="form-row ">
+
+            <label for="example-date-input" class="col-xs-2 col-form-label">Укажите дату создания задачи</label>
+            <div class="form-group col-md-4">
+                <div class="col-xs-10">
+                    <input class="form-control" type="date" name="dateOfCreation">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="flag" value="2" type="checkbox"> Это важная задача?
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-1 border-0 w-25">
+        <button class="m-1 btn btn-outline-primary" id="create" value="{{ userId }}"
+                type="submit">Добавить
+        </button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#newTasksForm").on("submit", function () {
+            let dataForm = $(this).serialize()
+            $.ajax({
+                url: '?=Tasks/create',
+                method: 'post',
+                dataType: 'html',
+                data: dataForm,
+                success: function (data) {
+                    console.log(data);
+                },
+            });
+        });
+    });
+</script>
