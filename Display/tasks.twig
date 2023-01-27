@@ -13,13 +13,12 @@
                 {% endif %}
                 <h2>{{ exercise.getTitle() }}</h2><br>
 
-                <textarea id="1" class="form-control"
+                <textarea id="aaa_{{ exercise.getId }}" class="form-control"
                           name="content_{{ exercise.getId }}">{{ exercise.getContent() }}</textarea>
 
-                {% if exercise.getAuthor() %}
-                    <p>Автор статьи:</p>
-                    <p>{{ exercise.getAuthor() }}</p>
-                {% endif %}
+                <p>Время создания:</p>
+                <p>{{ exercise.getDateOfCreation }}</p>
+
             </div>
             <button class="m-1 btn btn-outline-primary" id="delete" value="{{ exercise.getId }}"
                     type="submit">Удалить
@@ -35,18 +34,18 @@
     {% endfor %}
 
     {% include 'pagination.twig' %}
-
-
+    
     <script>
         $(document).ready(function () {
             $("#tasksForm button[type=submit]").click(function (event) {
                 let btn = $(this);
+                let textareaValue = $('#aaa_' + btn.val());
                 let del = true;
                 if ($(this).attr('id') === 'delete') {
                     del = confirm('Вы уверены что хотите удалить задание?');
                 }
 
-                if ($(this).attr('id') === 'edit'){
+                if ($(this).attr('id') === 'edit') {
                 }
 
                 if (del) {
@@ -56,6 +55,7 @@
                         dataType: 'html',
                         data: {
                             "taskId": btn.val(),
+                            "textareaValue": textareaValue
                         },
                         success: function (data) {
                             console.log(data);
