@@ -18,10 +18,12 @@ class User extends Model
     /** @var string Email пользователя */
     public string $email;
 
-    /** @var int|null Количество задач */
-    public ?int $task_count = null;
+    /** @var int Количество задач */
+    public int $task_count;
 
     /**
+     * Найти все и подсчитать задачи
+     *
      * @throws Exception
      */
     public function findAllAndCountTask(): ?array
@@ -31,7 +33,8 @@ class User extends Model
     }
 
     /**
-     * ишем Id автора по имени
+     * ишем Id автора по email
+     *
      * @param string $email
      * @return User|null
      * @throws Exception
@@ -53,6 +56,7 @@ class User extends Model
 
     /**
      * Получаем Id автора
+     *
      * @return int
      */
     public function getId(): int
@@ -71,6 +75,8 @@ class User extends Model
     }
 
     /**
+     * Установить email
+     *
      * @param string $email
      * @return void
      */
@@ -80,17 +86,22 @@ class User extends Model
     }
 
     /**
-     * @param int|null $countTask
+     * Установить countTask
+     *
+     * @param int $countTask
+     * @return void
      */
-    public function setCountTask(?int $countTask): void
+    public function setCountTask(int $countTask): void
     {
         $this->countTask = $countTask;
     }
 
     /**
-     * @return int|null
+     * Получить countTask
+     *
+     * @return int
      */
-    public function getCountTask(): ?int
+    public function getCountTask(): int
     {
         return $this->countTask;
     }
