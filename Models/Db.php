@@ -3,7 +3,6 @@
 namespace Models;
 
 use Exception;
-use Generator;
 use PDO;
 use PDOStatement;
 
@@ -22,9 +21,7 @@ class Db
     protected PDO $pdo;
 
     /**
-     * устанавливаем соннект с базой данных
-     * если не удалось ексепшен
-     * @throws Exception
+     * Устанавливаем коннект с базой данных
      */
     public function __construct()
     {
@@ -40,7 +37,7 @@ class Db
      * принимаем sql запрос,
      * массив подстановки (по у молчанию пустой),
      * и класс в виде которого будет возврашен результат
-     * в случае успеха вернется массив объектов
+     * в случае успеха вернется объект
      * @param string $sql
      * @param string $class
      * @param array $data
@@ -59,7 +56,7 @@ class Db
     }
 
     /**
-     * Вывот двнных через генератор
+     * Вернуть все записи
      *
      * @param string $sql
      * @param string $class
@@ -92,6 +89,7 @@ class Db
 
     /**
      * получаем последний записаны Id
+     *
      * @return int
      */
     public function getLastId(): int
@@ -112,6 +110,7 @@ class Db
 
     /**
      * Возвращает количество по sql запросу и параметрам
+     *
      * @param string $sql
      * @param array $params
      * @return int
@@ -124,5 +123,4 @@ class Db
 
         return $query->rowCount();
     }
-
 }
