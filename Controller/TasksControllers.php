@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Controller;
 
@@ -12,7 +11,7 @@ use Twig\Error\SyntaxError;
 /**
  * Контроллер для класса Task
  */
-class TasksControllers extends Controllers
+class TasksController extends Controller
 {
     /**
      * Главный экшен, выводит все задачи
@@ -112,9 +111,9 @@ class TasksControllers extends Controllers
     public function edit(): string
     {
         if (!empty($_SESSION['userId'] && $_POST['content'])) {
-            $task =  new Task();
+            $task = new Task();
             $task->setContent($_POST['content']);
-            if ($task->save()){
+            if ($task->save()) {
 
                 return 'Задача успешно отредактирована';
             }
