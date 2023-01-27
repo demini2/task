@@ -11,7 +11,7 @@ use View\View;
  * базовый класс контроллера
  * проверяет права доступа и рисует шаблон
  */
-abstract class Controllers
+abstract class Controller
 {
     /** @var View $view */
     protected View $view;
@@ -22,8 +22,7 @@ abstract class Controllers
     public function __construct()
     {
         $this->view = new View();
-        $file = new FilesystemLoader('Display');
-        $this->environment = new Environment($file);
+        $this->environment = new Environment(new FilesystemLoader('Display'));
     }
 
     /**
@@ -47,9 +46,9 @@ abstract class Controllers
     {
         if ($this->access()) {
             return $this->handle($param);
-        } else {
-            throw new Exception('нет доступа');
         }
+
+        throw new Exception('нет доступа');
     }
 
     /**
