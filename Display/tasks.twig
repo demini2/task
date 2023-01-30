@@ -44,10 +44,6 @@
                 if ($(this).attr('id') === 'delete') {
                     del = confirm('Вы уверены что хотите удалить задание?');
                 }
-
-                if ($(this).attr('id') === 'edit') {
-                }
-
                 if (del) {
                     $.ajax({
                         url: '?=Tasks/' + $(this).attr('id'),
